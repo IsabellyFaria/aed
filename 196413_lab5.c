@@ -6,7 +6,7 @@
 typedef struct Operacao{
     char tipo;
     char caractere;
-    int posição;
+    int posicao;
     struct Operacao *prox;
 }Operacao;
 typedef struct Texto{
@@ -58,14 +58,40 @@ void inserir_texto(char c, int posicao, Texto* lista){
         return;
     }
     int i = 0;
+    Texto *ant = NULL;
     Texto *aux = lista;
     while(i != posicao && aux->prox != NULL){
+        ant = aux;
         aux = aux->prox;
         i++;
     }
-    novo->prox = aux->prox;
-    aux->prox = novo;
+    novo->prox = aux;
+    if(ant != NULL){
+        ant->prox = novo;
+    }
 }
 
     //Função principal
-void inserir(){}
+void inserir(char c, int posicao, Editor* e){
+
+    Texto* t = e->tex;
+    Operacao* new_op = malloc(sizeof(Operacao));
+    new_op->tipo = 'I';
+    new_op->caractere = c;
+    new_op->posicao = posicao;
+    new_op->prox = e->undo_list;
+    e->undo_list = new_op;
+    inserir_texto(c, posicao, t);
+    e->n_caracteres++;
+}
+
+//REMOVER
+    //Remover do texto
+
+    //Função geral de remoção
+
+//DESFAZER
+    
+//REFAZER
+
+//MAIN
