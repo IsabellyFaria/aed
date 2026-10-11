@@ -86,4 +86,4 @@ int main(){
     } 
     //imprime(lista); 
     desaloca_caixas(lista); return 0; 
-}
+}    
